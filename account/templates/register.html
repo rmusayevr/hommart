@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Qeydiyyat' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="register">
+        <div class="mt-0 pt-0">
+          <img src="{% static 'images/loginImage.png' %}" alt="" class="form-image d-none">
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row d-flex m-auto justify-content-center">
+                <h6 class="fw-bold">{% trans 'Hesabını Yarat' %}</h6>
+                <div class="col-4 px-0 w-390 me-xl-4">
+                    <div class="mb-3">
+                      {{ form.full_name }}
+                    </div>
+                    <div class="mb-3">
+                      {{ form.email }}
+                      <span class="text-danger">{{ form.email.errors }}</span>
+                    </div>
+                    <div class="mb-3">
+                      {{ form.phone_number }}
+                      <span class="text-danger">{{ form.phone_number.errors }}</span>
+                    </div>
+                    <div class="mb-3">
+                      {{ form.password1 }}
+                    </div>
+                    <div class="mb-3">
+                      {{ form.password2 }}
+                      <span class="text-danger">{{ form.password2.errors }}</span>
+                    </div>          
+                </div>
+                <div class="col-4 px-0 right_input_side">
+                    <span class="me-5 fw-bold">{% trans 'Cinsi' %}</span>
+                    <div class="form-check form-check-inline ms-2">
+                        {{ form.gender.0 }}
+                    </div>
+                    <div class="form-check form-check-inline">
+                        {{ form.gender.1 }}
+    
+                    </div>
+                    <p class="fw-bold mt-4">
+                        Ipsum doloribus numquam consequuntur. Facilis sunt est enim exercitationem. Necessitatibus commodi enim vitae non numquam, doloribus ullam enim consequuntur voluptatem. Tenea.
+                    </p>
+                    <button type="submit" class="registerButton w-100 border-0 my-2 rounded-3 fw-bold">{% trans 'Qeydiyyatı tamamla' %}</button>
+                    <div class="text-center my-3 d-flex align-items-center justify-content-center">
+                        <hr class="w-25">
+                        <span>{% trans 'və ya' %}</span>
+                        <hr class="w-25">
+                    </div>
+                    <a href="{% url 'login' %}">
+                        <button type="button" class="goLogin w-100 bg-white mt-2 rounded-3 fw-bold">{% trans 'Daxil ol' %}</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

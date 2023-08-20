@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Sifarişin təsdiqi' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/card_verify.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container d-flex flex-column align-items-center mt-5">
+        <div class="verify_image">
+            <img src="{% static 'images/icons/verify_icon.svg' %}" alt="">
+        </div>
+        <div class="content text-center mt-5">
+            <h6>{% trans 'Sifarişiniz uğurla tamamlandı' %}</h6>
+            <p class="mt-3 mb-5">{% trans 'Çatdırılma və digər məsələlərlə bağlı sizə geri dönüş ediləcək' %}</p>
+        </div>
+        <div>
+            <button type="button" class="ordersInfo bg-white rounded-2 my-2 fw-bold">{% trans 'Sifariş çekini yüklə' %}</button>
+        </div>
+        <div>
+            <button type="button" onclick="window.open('{% url 'myorders' %}', '_self');" class="ordersInfo bg-white rounded-2 mt-2 mb-5 fw-bold">{% trans 'Sifarişlərinə bax' %}</button>
+        </div>
+    </div>
+{% endblock %}

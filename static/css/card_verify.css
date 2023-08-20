@@ -1,0 +1,28 @@
+.verify_image img {
+    width: 120px;
+    height: 120px;
+}
+
+.content {
+    width: 300px;
+}
+
+.content h6 {
+    font-weight: bolder;
+    font-size: 15px;
+    color: #0D2B3D;
+}
+
+.content p {
+    font-size: 12px;
+    color: #8F949E;
+}
+
+.ordersInfo {
+    width: 300px;
+    border: 2px solid #F4CD17;
+    color: #0D2B3D;
+    font-size: 12px;
+    padding: 14px;
+}
+

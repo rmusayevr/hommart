@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Giriş' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="login">
+        <div class="mt-0 pt-0">
+            <img src="{% static 'images/loginImage.png' %}" alt="" class="form-image d-none">
+        </div>
+        <div class="row d-flex justify-content-start centered m-auto">
+            {% include 'messages.html' %}
+            {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div id="form_errors">
+                        {% for key, value in form.errors.items %}
+                            <strong>{{ value }}</strong>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="col-5 rounded-3 m-0 banner-image-div">
+                <img src="{% static 'images/Frame 10.png' %}" alt="" class="banner-image">
+            </div>
+            <div class="col-5 width-30 px-3">
+                <h6 class="fw-bold mb-4 mt-60">{% trans 'Hesabına Daxil Ol' %}</h6>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        {{ form.username }}
+                        <span class="text-danger">{{ form.username.errors }}</span>
+                    </div>
+                    <div class="mb-4"> 
+                        {{ form.password }}
+                        <span class="text-danger">{{ form.password.errors }}</span>
+                    </div>
+                    <button type="submit" class="loginButton w-100 border-0 rounded-1 fw-bold">{% trans 'Daxil Ol' %}</button>
+                    <div class="mt-1 mb-2 form-check d-flex justify-content-between">
+                        <div>
+                            {{ form.remember_me }}
+                            <label class="form-check-label form-labels" for="exampleCheck1">{% trans 'Bu hesabı xatırla' %}</label>
+                        </div>
+                        <div>
+                            <a href="{% url 'forget_password' %}" class="text-decoration-none fw-bold form-labels">{% trans 'Parolu xatırlamırsan?' %}</a>
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center mb-3">
+                    <hr>
+                    <span class="or">{% trans 'və ya' %}</span>
+                    <hr>
+                </div>
+                <a href="{% url 'register' %}">
+                    <button type="button" class="goRegister w-100 bg-white rounded-1 fw-bold">{% trans 'Qeydiyyatdan keç' %}</button>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

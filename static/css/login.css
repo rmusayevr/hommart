@@ -1,0 +1,105 @@
+.login {
+    margin-top: 60px;
+}
+
+.banner-image {
+    width: 24.375rem; 
+    height: 21.875rem;
+}
+
+.login .row {
+    width: 58%; 
+    gap: 60px;
+}
+
+.login hr {
+    display: inline-block; 
+    height: 1px; 
+    width: 100px; 
+    margin: 3px 10px;
+}
+
+.login .or {
+    color: #5C5C5C; 
+    font-size: 12px;
+}
+
+.loginButton {
+    background-color: #F4CD17;
+    color: #0D2B3D;
+    font-size: 12px;
+    padding: 12px;
+}
+
+.goRegister {
+    border: 3px solid #F4CD17;
+    font-size: 12px;
+    padding: 14px;
+}
+
+.form-labels {
+    font-size: 10px;
+}
+
+#exampleInputEmail1,
+#exampleInputPassword1 {
+    font-size: 10px;
+    padding: 14px;
+}
+
+@media screen and (min-width: 2360px) {
+    .login .row {
+        justify-content: center !important;
+    }
+
+    .col-5 {
+        width: 30% !important; 
+    }
+
+    .register h6 {
+        margin-left: 500px;
+    }
+  }
+
+
+@media screen and (max-width: 1024px) {
+    
+    .login .row {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .login {
+        margin-top: 60px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .login .row {
+        width: 100%;
+    }
+    .mt-60 {
+        margin-top: 60px;
+    }
+    .banner-image-div  {
+        display: none;
+    }
+    .form-image {
+        display: block !important;
+        width: 100%;
+        top: 0;
+    }
+    .centered-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .width-30 {
+        width: 30rem;
+    }
+    .login h6 {
+        text-align: center;
+    }
+}
+

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart {% trans 'Bəyəndiklərim' %} </title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <nav class="mt-3 mx-auto" id="breadcrumb" aria-label="breadcrumb">
+        <ol class="row breadcrumb m-0 py-2">
+            <li class="col-6 text-center breadcrumb-item py-0">{% trans 'Bəyəndiklərim' %}</li>
+        </ol>
+    </nav>
+    
+    <div class="container">
+        <div class="row basket_main">
+            <div class="col-lg-6 col-12">
+                <div class="row">
+                    {% for item in items %}
+                        <div class="col-lg-6 col-12 image-col-6" id="card">
+                            <div class="row d-flex align-items-center justify-content-center">
+                                <div class="col-6">
+                                    <img src="{{ item.image.first.image.url }}" alt="" >
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column justify-content-start ps-4 productInfo">
+                                        <div class="fw-bold seats">
+                                            {{ item.product.category }}
+                                        </div>
+                                        <div class="fw-bolder">
+                                            {{ item.product.name }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column ps-4 pt-4 price">
+                                        {% if item.product.in_sale %}
+                                            <div class="text-decoration-line-through sale_price fw-bold text-secondary">
+                                                {{ item.product.final_price|stringformat:".2f" }} AZN
+                                            </div>
+                                        {% endif %}
+                                        <div class="price fw-bolder">
+                                            {{ item.product.price|stringformat:".2f" }} AZN
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="{% static 'images/icons/delete_products.svg' %}" class="remove" data-id="{{ item.pk }}" alt="">
+                            <img src="{% static 'images/icons/basket_wishlist.svg' %}" class="addWBasket" data-id="{{ item.pk }}" alt="">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/wishlist.js' %}"></script>
+{% endblock %}

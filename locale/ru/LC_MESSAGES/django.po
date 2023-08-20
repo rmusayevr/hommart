@@ -1,0 +1,590 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-09 22:47+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\account\models.py:14
+msgid "email address"
+msgstr ""
+
+#: .\account\models.py:15
+msgid "full name"
+msgstr ""
+
+#: .\account\models.py:16
+msgid "phone number"
+msgstr ""
+
+#: .\account\models.py:17
+msgid "gender"
+msgstr ""
+
+#: .\account\models.py:18
+msgid "extra phone number"
+msgstr ""
+
+#: .\account\models.py:19
+msgid "city number"
+msgstr ""
+
+#: .\account\models.py:20
+msgid "birthday"
+msgstr ""
+
+#: .\account\models.py:21
+msgid "passport number"
+msgstr ""
+
+#: .\account\models.py:22
+msgid "address"
+msgstr ""
+
+#: .\account\models.py:23
+msgid "address link"
+msgstr ""
+
+#: .\account\models.py:24
+msgid "date joined"
+msgstr ""
+
+#: .\account\models.py:25
+msgid "active"
+msgstr ""
+
+#: .\account\models.py:26
+msgid "staff"
+msgstr ""
+
+#: .\account\models.py:27
+msgid "superuser"
+msgstr ""
+
+#: .\account\models.py:35
+msgid "User"
+msgstr ""
+
+#: .\account\models.py:36
+msgid "Users"
+msgstr ""
+
+#: .\account\templates\contact.html:5 .\account\templates\contact.html:17
+#: .\account\templates\contact.html:35 .\account\templates\myorders.html:28
+#: .\account\templates\profile-mobile.html:42
+#: .\account\templates\profile.html:35 .\core\templates\base.html:192
+msgid "Əlaqə"
+msgstr ""
+
+#: .\account\templates\contact.html:16 .\account\templates\contact.html:24
+#: .\account\templates\myorders.html:17
+#: .\account\templates\profile-mobile.html:5
+#: .\account\templates\profile-mobile.html:25
+#: .\account\templates\profile.html:5 .\account\templates\profile.html:16
+#: .\account\templates\profile.html:24
+msgid "Profilim"
+msgstr ""
+
+#: .\account\templates\contact.html:26 .\account\templates\myorders.html:19
+#: .\account\templates\profile-mobile.html:33
+#: .\account\templates\profile.html:26
+msgid "Mənim Məlumatlarım"
+msgstr ""
+
+#: .\account\templates\contact.html:29 .\account\templates\myorders.html:5
+#: .\account\templates\myorders.html:22
+#: .\account\templates\profile-mobile.html:36
+#: .\account\templates\profile.html:29
+msgid "Sifarişlərim"
+msgstr ""
+
+#: .\account\templates\contact.html:32 .\account\templates\myorders.html:25
+#: .\account\templates\profile-mobile.html:39
+#: .\account\templates\profile.html:32
+msgid "Seçilmişlərim"
+msgstr ""
+
+#: .\account\templates\contact.html:38 .\account\templates\myorders.html:31
+#: .\account\templates\profile-mobile.html:45
+#: .\account\templates\profile.html:38
+msgid "Çıxış"
+msgstr ""
+
+#: .\account\templates\contact.html:48
+msgid "Müraciətin statusu"
+msgstr ""
+
+#: .\account\templates\contact.html:52
+#: .\account\templates\password\forget_password.html:23
+#: .\account\templates\password\reset_password.html:27
+msgid "Göndər"
+msgstr ""
+
+#: .\account\templates\contact.html:55
+msgid "Əvvəlki müraciətlərim"
+msgstr ""
+
+#: .\account\templates\login.html:5
+msgid "Giriş"
+msgstr ""
+
+#: .\account\templates\login.html:32
+msgid "Hesabına Daxil Ol"
+msgstr ""
+
+#: .\account\templates\login.html:43
+msgid "Daxil Ol"
+msgstr ""
+
+#: .\account\templates\login.html:47
+msgid "Bu hesabı xatırla"
+msgstr ""
+
+#: .\account\templates\login.html:50
+msgid "Parolu xatırlamırsan?"
+msgstr ""
+
+#: .\account\templates\login.html:56 .\account\templates\register.html:56
+msgid "və ya"
+msgstr ""
+
+#: .\account\templates\login.html:60
+msgid "Qeydiyyatdan keç"
+msgstr ""
+
+#: .\account\templates\myorders.html:87
+msgid "Heç bir sifarişin mövcud deyil"
+msgstr ""
+
+#: .\account\templates\password\forget_password.html:17
+#: .\account\templates\password\reset_password.html:17
+msgid "Parolu Yenilə"
+msgstr ""
+
+#: .\account\templates\password\success_forget_password.html:19
+msgid "Mail adresinizə link göndərildi. Parolu yeniləmək üçün kontrol edin."
+msgstr ""
+
+#: .\account\templates\password\success_reset_password.html:19
+msgid ""
+"Parolunuz müvəffəqiyyətlə yeniləndi. Giriş səhifəsinə keçid edərək "
+"profilinizə daxil ola bilərsiniz."
+msgstr ""
+
+#: .\account\templates\password\success_reset_password.html:21
+#: .\account\templates\register.html:60
+msgid "Daxil ol"
+msgstr ""
+
+#: .\account\templates\profile.html:17
+msgid "Mənim məlumatlarım"
+msgstr ""
+
+#: .\account\templates\profile.html:49 .\order\templates\cart_verify.html:33
+msgid "Ad Soyad"
+msgstr ""
+
+#: .\account\templates\profile.html:53
+msgid "Mail adresi"
+msgstr ""
+
+#: .\account\templates\profile.html:58 .\order\templates\cart_verify.html:38
+msgid "Telefon nömrəsi"
+msgstr ""
+
+#: .\account\templates\profile.html:63
+msgid "Əlavə telefon nömrəsi"
+msgstr ""
+
+#: .\account\templates\profile.html:68
+msgid "Şəhər telefonu"
+msgstr ""
+
+#: .\account\templates\profile.html:73
+msgid "Doğum tarixi"
+msgstr ""
+
+#: .\account\templates\profile.html:78
+msgid "ŞV-nin nömrəsi"
+msgstr ""
+
+#: .\account\templates\profile.html:83
+msgid "Parol"
+msgstr ""
+
+#: .\account\templates\profile.html:87
+msgid "Parolu təkrar et"
+msgstr ""
+
+#: .\account\templates\profile.html:92 .\order\templates\cart_verify.html:43
+msgid "Çatdırılma Ünvanı"
+msgstr ""
+
+#: .\account\templates\profile.html:96
+msgid "Ünvanın linki"
+msgstr ""
+
+#: .\account\templates\profile.html:99 .\account\templates\register.html:42
+msgid "Cinsi"
+msgstr ""
+
+#: .\account\templates\profile.html:107
+msgid "Dəyişiklikləri yadda saxla"
+msgstr ""
+
+#: .\account\templates\register.html:5
+msgid "Qeydiyyat"
+msgstr ""
+
+#: .\account\templates\register.html:20
+msgid "Hesabını Yarat"
+msgstr ""
+
+#: .\account\templates\register.html:53
+msgid "Qeydiyyatı tamamla"
+msgstr ""
+
+#: .\core\templates\base.html:182
+msgid "Şirkət"
+msgstr ""
+
+#: .\core\templates\base.html:187
+msgid "Haqqımızda"
+msgstr ""
+
+#: .\core\templates\base.html:202
+msgid "Müştərilər"
+msgstr ""
+
+#: .\core\templates\base.html:207
+msgid "Ən çox verilən suallar"
+msgstr ""
+
+#: .\core\templates\base.html:212
+msgid "Kampaniyalar"
+msgstr ""
+
+#: .\core\templates\base.html:217
+msgid "Bloq"
+msgstr ""
+
+#: .\core\templates\base.html:222
+msgid "Çatdırılma"
+msgstr ""
+
+#: .\core\templates\base.html:227
+msgid "Şikayət və təkliflər"
+msgstr ""
+
+#: .\core\templates\base.html:237
+msgid "İnformasiya"
+msgstr ""
+
+#: .\core\templates\base.html:242
+msgid "Saytın istifadə şərtləri"
+msgstr ""
+
+#: .\core\templates\base.html:247
+msgid "Məxfilik siyasəti"
+msgstr ""
+
+#: .\core\templates\base.html:252
+msgid "Geri qaytarılma siyasəti"
+msgstr ""
+
+#: .\core\templates\base.html:262
+msgid "Bizi izləyin"
+msgstr ""
+
+#: .\core\templates\base.html:294
+msgid "Xətai, Afiyəddin Cəlilov küç., 46D"
+msgstr ""
+
+#: .\core\templates\base.html:311
+msgid "2023 Homemart - Bütün hüquqlar qorunur."
+msgstr ""
+
+#: .\core\templates\index.html:93
+msgid "Xüsusi endirimdə"
+msgstr ""
+
+#: .\core\templates\index.html:109
+msgid "Stokda Var"
+msgstr ""
+
+#: .\core\templates\index.html:126 .\product\templates\detail.html:91
+msgid "Bir kliklə al"
+msgstr ""
+
+#: .\core\templates\index.html:147
+msgid "Bu Həftənin Yeniləri"
+msgstr ""
+
+#: .\core\templates\index.html:171 .\core\templates\index.html:262
+#: .\core\templates\search.html:33 .\product\templates\detail.html:176
+#: .\product\templates\products.html:222
+msgid "Bank kartları"
+msgstr ""
+
+#: .\core\templates\index.html:172 .\core\templates\index.html:263
+#: .\core\templates\search.html:34 .\product\templates\detail.html:177
+#: .\product\templates\products.html:223
+msgid "Şəhər daxilində pulsuz çatdırılma"
+msgstr ""
+
+#: .\core\templates\index.html:173 .\core\templates\index.html:264
+#: .\core\templates\search.html:35 .\product\templates\detail.html:178
+#: .\product\templates\products.html:224
+msgid "Stokda var"
+msgstr ""
+
+#: .\core\templates\index.html:188 .\core\templates\index.html:191
+#: .\core\templates\index.html:194 .\core\templates\index.html:279
+#: .\core\templates\index.html:282 .\core\templates\index.html:285
+#: .\core\templates\search.html:54 .\core\templates\search.html:57
+#: .\core\templates\search.html:60 .\product\templates\detail.html:103
+#: .\product\templates\detail.html:104 .\product\templates\detail.html:105
+#: .\product\templates\detail.html:193 .\product\templates\detail.html:196
+#: .\product\templates\detail.html:199 .\product\templates\products.html:239
+#: .\product\templates\products.html:242 .\product\templates\products.html:245
+msgid "ay"
+msgstr ""
+
+#: .\core\templates\index.html:203 .\core\templates\index.html:205
+#: .\core\templates\index.html:295 .\core\templates\index.html:297
+#: .\product\templates\detail.html:208 .\product\templates\detail.html:210
+msgid "Səbətə əlavə et"
+msgstr ""
+
+#: .\core\templates\index.html:222 .\product\templates\products.html:48
+msgid "Homemart ilə yenilənməyin vaxtıdır!"
+msgstr ""
+
+#: .\core\templates\index.html:225 .\product\templates\products.html:51
+msgid ""
+"2023 Kolleksiyamızla tanış olmaq üçün saytımıza  keçid edin. Hal-hazırda "
+"ümumi mağazalar şəbəkəsinə 78 mebel mağazası daxildir. Web saytımızda bütün "
+"mebellərin satışı mövcuddur."
+msgstr ""
+
+#: .\core\templates\index.html:230
+msgid "Daha ətraflı"
+msgstr ""
+
+#: .\core\templates\index.html:238 .\product\templates\detail.html:152
+msgid "Sizin üçün seçimlərimiz"
+msgstr ""
+
+#: .\core\templates\search.html:6
+msgid "Axtarış nəticəsi"
+msgstr ""
+
+#: .\core\templates\search.html:73 .\core\templates\search.html:75
+#: .\product\templates\detail.html:76 .\product\templates\detail.html:78
+#: .\product\templates\products.html:254 .\product\templates\products.html:256
+msgid "Səbətə at"
+msgstr ""
+
+#: .\homemart\settings.py:164
+msgid "Azerbaijan"
+msgstr ""
+
+#: .\homemart\settings.py:165
+msgid "Russian"
+msgstr ""
+
+#: .\homemart\settings.py:166
+msgid "English"
+msgstr ""
+
+#: .\order\templates\card.html:5 .\order\templates\card.html:18
+#: .\order\templates\card.html:28 .\order\templates\cart.html:5
+#: .\order\templates\cart.html:16 .\order\templates\cart.html:73
+#: .\order\templates\cart_verify.html:17 .\order\templates\cart_verify.html:64
+msgid "Səbətim"
+msgstr ""
+
+#: .\order\templates\card.html:29 .\order\templates\cart.html:74
+#: .\order\templates\cart_verify.html:65
+msgid "Məlumatlarım"
+msgstr ""
+
+#: .\order\templates\card.html:30 .\order\templates\cart.html:75
+#: .\order\templates\cart_verify.html:66
+msgid "Ödəmə"
+msgstr ""
+
+#: .\order\templates\card.html:34
+msgid "Kart məlumatları"
+msgstr ""
+
+#: .\order\templates\card.html:37
+msgid "Kart sahibinin adı"
+msgstr ""
+
+#: .\order\templates\card.html:41
+msgid "Kartın 16 rəqəmini daxil edin"
+msgstr ""
+
+#: .\order\templates\card.html:46
+msgid "Bitmə tarixi"
+msgstr ""
+
+#: .\order\templates\card.html:54
+msgid "Ödənişi et"
+msgstr ""
+
+#: .\order\templates\card_verify.html:5
+msgid "Sifarişin təsdiqi"
+msgstr ""
+
+#: .\order\templates\card_verify.html:18
+msgid "Sifarişiniz uğurla tamamlandı"
+msgstr ""
+
+#: .\order\templates\card_verify.html:19
+msgid "Çatdırılma və digər məsələlərlə bağlı sizə geri dönüş ediləcək"
+msgstr ""
+
+#: .\order\templates\card_verify.html:22
+msgid "Sifariş çekini yüklə"
+msgstr ""
+
+#: .\order\templates\card_verify.html:25
+msgid "Sifarişlərinə bax"
+msgstr ""
+
+#: .\order\templates\cart.html:57
+msgid "Məhsulun sayı"
+msgstr ""
+
+#: .\order\templates\cart.html:83 .\order\templates\cart_verify.html:74
+msgid "Ümumi qiymət:"
+msgstr ""
+
+#: .\order\templates\cart.html:91 .\order\templates\cart_verify.html:82
+msgid "Endirim:"
+msgstr ""
+
+#: .\order\templates\cart.html:99 .\order\templates\cart_verify.html:90
+msgid "Toplam:"
+msgstr ""
+
+#: .\order\templates\cart.html:108
+msgid "Sifariş rəsmiləşdir"
+msgstr ""
+
+#: .\order\templates\cart_verify.html:5 .\order\templates\cart_verify.html:29
+msgid "Sifarişçi məlumatları"
+msgstr ""
+
+#: .\order\templates\cart_verify.html:48
+msgid "Ünvanın linki (Əgər varsa)"
+msgstr ""
+
+#: .\order\templates\cart_verify.html:52
+msgid "Ödəniş üsulları"
+msgstr ""
+
+#: .\order\templates\cart_verify.html:98
+msgid "Növbəti"
+msgstr ""
+
+#: .\order\templates\wishlist.html:5 .\order\templates\wishlist.html:16
+msgid "Bəyəndiklərim"
+msgstr ""
+
+#: .\product\templates\detail.html:17 .\product\templates\products.html:29
+msgid "Ana səhifə"
+msgstr ""
+
+#: .\product\templates\detail.html:51
+msgid "Məhsul mövcuddur"
+msgstr ""
+
+#: .\product\templates\detail.html:58
+msgid "Növü"
+msgstr ""
+
+#: .\product\templates\detail.html:85 .\product\templates\detail.html:87
+msgid "İstək siyahısına əlavə et"
+msgstr ""
+
+#: .\product\templates\detail.html:95
+msgid "Taksit kalkulyatoru"
+msgstr ""
+
+#: .\product\templates\detail.html:97
+msgid "Aylıq ödəniş"
+msgstr ""
+
+#: .\product\templates\detail.html:102
+msgid "Nağd"
+msgstr ""
+
+#: .\product\templates\detail.html:115
+msgid "Saytda BirKart ilə 2-6 ay arası taksitli ödəniş"
+msgstr ""
+
+#: .\product\templates\detail.html:119
+msgid "Saytda Tamkart ilə 2-6 ay arası taksitli ödəniş"
+msgstr ""
+
+#: .\product\templates\detail.html:123
+msgid "50 üzəri ünvana pulsuz çatdırılma"
+msgstr ""
+
+#: .\product\templates\detail.html:127
+msgid "Azərpoçt ilə bütün bölgələrə çatdırılma"
+msgstr ""
+
+#: .\product\templates\detail.html:131
+msgid "Çatdırılma zamanı qapıda nağd ödəniş"
+msgstr ""
+
+#: .\product\templates\detail.html:135
+msgid "Saytda bank kartı ilə online ödəniş"
+msgstr ""
+
+#: .\product\templates\detail.html:143
+msgid "Təsvir"
+msgstr ""
+
+#: .\product\templates\products.html:58 .\product\templates\products.html:62
+msgid "Filtr"
+msgstr ""
+
+#: .\product\templates\products.html:66 .\product\templates\products.html:142
+msgid "Kateqoriyalar"
+msgstr ""
+
+#: .\product\templates\products.html:96 .\product\templates\products.html:172
+msgid "Brend"
+msgstr ""
+
+#: .\product\templates\products.html:109 .\product\templates\products.html:185
+msgid "Qiymət"
+msgstr ""
+
+#: .\product\templates\products.html:130
+msgid "Filtri tətbiq et"
+msgstr ""
+
+#: .\product\templates\products.html:131
+msgid "Filtri bağla"
+msgstr ""

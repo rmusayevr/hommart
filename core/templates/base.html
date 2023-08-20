@@ -1,0 +1,324 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block title %}
+    {% endblock %}
+
+    <link rel="icon" type="image/gif" href="{% static 'images/Vector (1).png' %}" />
+    <link rel="icon" type="image/png" href="{% static 'images/Vector (1).png' %}" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+
+    {% block css %}
+    {% endblock %}
+
+</head>
+<body>
+    <aside id="aside-menu">
+        <div class="aside-wrp">
+          <div class="aside-header">
+            <div class="action-wrp">
+              <button onclick="window.open('{% url 'cart' %}', '_self');">
+                <img src="{% static 'images/icons/basket.svg' %}" alt="basket" />
+              </button>
+              <button onclick="window.open('{% url 'wishlist' %}', '_self');">
+                <img src="{% static 'images/icons/heart.svg' %}" alt="heart" />
+              </button>
+              {% if user.is_authenticated %}
+                <button onclick="window.open('{% url 'profile_mobile' %}', '_self');">
+                  <img src="{% static 'images/icons/account.svg' %}" alt="account" />
+                </button>
+              {% else %}
+                <button onclick="window.open('{% url 'login' %}', '_self');">
+                  <img src="{% static 'images/icons/account.svg' %}" alt="account" />
+                </button>
+              {% endif %}
+            </div>
+            <button class="aside-header__exit">
+              <img src="{% static 'images/icons/exit.svg' %}" alt="Exit" />
+            </button>
+          </div>
+          <div class="aside-search">
+            <form action="/search/" method="post" class="w-100">
+              {% csrf_token %}
+              <input type="text" name="name" />
+              <button><img src="{% static 'images/icons/search.svg' %}" alt="Search" /></button>
+            </form>
+          </div>
+          <div class="aside-nav">
+            <ul class="aside-nav__list">
+              {% for mob_cat in mob_categories %}
+                <li class="aside-nav__list__list-item">
+                  <img src="{{ mob_cat.image.url }}" alt="Mətbəx" />
+                  <a href="{% url 'products' %}?category={{ mob_cat.slug}}">{{ mob_cat.name }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+    </aside>
+
+    <header>
+        <div class="header p-3 width-78">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="col-2">
+              <a href="{% url 'home' %}">
+                <img
+                  src="{% static 'images/icons/logo_hommart 1.png' %}"
+                  alt="HOMEMART's Logo"
+                  width="140px"
+                  height="25px"
+                />
+              </a>
+            </div>
+            <div class="search-wrp col-7 pt-3" style="width: 66%">
+              <div class="input-group mb-3 position-relative w-100">
+                <form action="/search/" method="post">
+                  {% csrf_token %}
+                  <input type="search" name="name" class="form-control rounded search" placeholder="Axtar..."/>
+                  <button class="searchbtn position-absolute">
+                    <img src="{% static 'images/icons/search_icon.svg' %}" width="13px" height="13px" alt="">
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="actions-wrp col-3">
+              <div class="row icons d-flex justify-content-evenly ms-3">
+                <div class="col-6 d-flex justify-content-around">
+                  <a href="{% url 'wishlist' %}">
+                    <img
+                      src="{% static 'images/icons/svg-heart.svg' %}"
+                      width="15px"
+                      height="13px"
+                    />
+                  </a>
+                  <a href="{% url 'cart' %}">
+                    <img
+                      src="{% static 'images/icons/cart.svg' %}"
+                      width="15px"
+                      height="13px"
+                    />
+                  </a>
+                  {% if user.is_authenticated %}
+                    <a href="{% url 'profile' user.pk %}">
+                      <img src="{% static 'images/icons/svg-person.svg' %}" width="12px" height="14px"/>
+                    </a>
+                  {% else %}
+                    <a href="{% url 'login' %}">
+                      <img src="{% static 'images/icons/svg-person.svg' %}" width="12px" height="14px"/>
+                    </a>
+                  {% endif %}
+                </div>
+                <div class="col-6 languages p-0 m-0 border-start ps-3">
+                  {% get_current_language as CURRENT_LANGUAGE %}
+                  {% get_available_languages as AVAILABLE_LANGUAGES %}
+                  {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
+                  <div class="dropdown">
+                    <button class="btn dropdown-toggle p-0 pe-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    >
+                    {% if CURRENT_LANGUAGE == 'en' %}
+                      <img src="https://flagcdn.com/20x15/gb.png" height="15" width="20px" alt="..">
+                    {% else %}
+                      <img src="https://flagcdn.com/20x15/{{ CURRENT_LANGUAGE }}.png" height="15" width="20px" alt="..">
+                    {% endif %}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-bs-target="#dropdownMenuButton">
+                      {% for language in languages %}
+                        <a class="dropdown-item {% if language.code == CURRENT_LANGUAGE %} active {% endif %}" href="{% if CURRENT_LANGUAGE != 'az' %}{% if language.code != 'az' %}/{{ language.code }}{{ request.path|slice:'3:' }}{% else %}{{ request.path|slice:'3:' }}{% endif %}{% else %}{% if language.code != 'az' %}/{{ language.code }}{{ request.path }}{% else %}{{ request.path }}{% endif %}{% endif %}">
+                          {% if language.code == 'en' %}
+                            <img src="https://flagcdn.com/20x15/gb.png" height="15" width="20px" alt="{{ language.code }}">
+                            {{ language.name_local }}
+                          {% else %}
+                            <img src="https://flagcdn.com/20x15/{{ language.code }}.png" height="15" width="20px" alt="{{ language.code }}">
+                            {{ language.name_local }}
+                          {% endif %}
+                        </a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="burger">
+              <img src="{% static 'images/icons/burger.svg' %}" alt="Burger" />
+            </div>
+          </div>
+        </div>
+    </header>
+  
+
+    {% block content %}
+    {% endblock %}
+
+
+    <footer id="footer">
+        <div class="footer-logo-mobile">
+          <img
+            src="{% static 'images/icons/homemart logo white.png' %}"
+            width="150px"
+            height="25px"
+            alt=""
+          />
+        </div>
+        <div class="footer-up d-flex justify-content-around mx-auto">
+          <div>
+            <h3
+              style="width: 184px"
+              class="text-white border-bottom border-2 fs-6 pb-2"
+            >
+              {% trans 'Şirkət' %}
+            </h3>
+            <ul class="info-list list-unstyled">
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Haqqımızda' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Əlaqə' %}</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              style="width: 184px"
+              class="text-white border-bottom border-2 fs-6 pb-2"
+            >
+            {% trans 'Müştərilər' %}
+            </h3>
+            <ul class="info-list list-unstyled">
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Ən çox verilən suallar' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Kampaniyalar' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Bloq' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Çatdırılma' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Şikayət və təkliflər' %}</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              style="width: 184px"
+              class="text-white border-bottom border-2 fs-6 pb-2"
+            >
+              {% trans 'İnformasiya' %}
+            </h3>
+            <ul class="info-list list-unstyled">
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Saytın istifadə şərtləri' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Məxfilik siyasəti' %}</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Geri qaytarılma siyasəti' %}</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              style="width: 140px"
+              class="text-white border-bottom border-2 fs-6 pb-2"
+            >
+            {% trans 'Bizi izləyin' %}
+            </h3>
+            <ul class="icon-list list-unstyled mt-3">
+              <li>
+                <a href="https://www.facebook.com/"
+                  ><img src="{% static 'images/icons/svg-fb.svg' %}"
+                /></a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/"
+                  ><img src="{% static 'images/icons/svg-instagram.svg' %}"
+                /></a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/"
+                  ><img src="{% static 'images/icons/svg-youtube-icon.svg' %}"
+                /></a>
+              </li>
+              <li>
+                <a href="#"><img src="{% static 'images/icons/svg-wp.svg' %}" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="{% static 'images/icons/svg-telegram.svg' %}" /></a>
+              </li>
+              <li>
+                <a href="#"> <img src="{% static 'images/icons/svg-tiktok.svg' %}" /></a>
+              </li>
+              
+            </ul>
+            <ul class="p-0 list-unstyled">
+              <li>
+                <a href="#" style="font-weight:700 !important; color:white !important; font-size:18px;" class="text-decoration-none text-secondary fw-normal"
+                  >{% trans 'Xətai, Afiyəddin Cəlilov küç., 46D' %}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="footer-bottom d-flex justify-content-start align-items-end text-secondary"
+        >
+          <div class="footer-logo">
+            <img
+              src="{% static 'images/icons/homemart logo white.png' %}"
+              width="150px"
+              height="25px"
+              alt=""
+            />
+          </div>
+          <div>&copy; {% trans '2023 Homemart - Bütün hüquqlar qorunur.' %}</div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+
+    {% block js %}
+    {% endblock %}
+</body>
+</html>

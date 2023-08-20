@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load mathfilters %}
+{% block title %}
+  <title>Homemart - {% trans 'Axtarış nəticəsi' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="width-78 mx-auto products mt-5">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3 col-6">
+                    {% if user.is_authenticated %}
+                        <img src="{% static 'images/icons/svg-full-heart.svg' %}" class="heart-icon" data-id="{{ product.get_product_version.pk }}" alt="Heart Icon">
+                    {% else %}
+                        <img src="{% static 'images/icons/svg-full-heart.svg' %}" onclick="window.open('{% url 'login' %}', '_self');" class="heart-icon" data-id="{{ product.get_product_version.pk }}" alt="Heart Icon">
+                    {% endif %}
+                                
+                    <a class="w-100" href="{% url 'detail' product=product.slug version=product.get_product_version.slug %}">
+                        <img src="{{ product.get_product_version.image.first.image.url }}" class="card-img-top h-210" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text mb-2 seats">{{ product.category.name }}</p>
+                        <a href="{% url 'detail' product=product.slug version=product.get_product_version.slug %}" class="card-title text-decoration-none d-block w-100 fw-bold mb-2">{{ product.name }}</a>
+                        <p class="btn btn-outline-danger me-5 disabled rounded-1">{% trans 'Bank kartları' %}</p>
+                        <p class="btn btn-outline-primary me-5 disabled rounded-1">{% trans 'Şəhər daxilində pulsuz çatdırılma' %}</p>
+                        <p class="btn btn-outline-success disabled rounded-1"><img src="{% static 'images/icons/svg-stock.svg' %}" class="me-1" alt=""> {% trans 'Stokda var' %}</p>
+                        <div class="d-flex justify-content-between productPrice">
+                            <div class="d-flex flex-column pt-3 price">
+                                {% if product.in_sale %}
+                                    <div class="text-decoration-line-through past-price text-secondary ps-3">
+                                        {{ product.price|stringformat:".2f" }} AZN
+                                    </div>
+                                    <div class="ps-3 fw-bold fullPrice">
+                                        {{ product.final_price|stringformat:".2f" }} AZN
+                                    </div>
+                                {% else %}
+                                    <div class="ps-3 pt-2 fw-bold fullPrice">
+                                        {{ product.price|stringformat:".2f" }} AZN
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex flex-column bg-body-tertiary p-2 mb-2 me-1 rounded-2 productCredit">
+                                <div class="d-flex justify-content-evenly">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary monthlyPayment border-0 p-1 fw-light">6 {% trans 'ay' %}</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary monthlyPayment border-0 p-1 fw-light">12 {% trans 'ay' %}</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary monthlyPayment border-0 p-1 fw-light">18 {% trans 'ay' %}</button>
+                                    </div>
+                                </div>
+                                <div class="resultPrice fw-bold fs-10">
+                                    {% if product.in_sale %}
+                                        {{ product.final_price|div:12|stringformat:".2f" }} AZN
+                                    {% else %}
+                                        {{ product.price|div:12|stringformat:".2f" }} AZN
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <button type="submit" class="addBasket w-100 border-0 rounded-1" id="{{ product.get_product_version.pk }}">{% trans 'Səbətə at' %}</button>
+                        {% else %}
+                            <button type="submit" onclick="window.open('{% url 'login' %}', '_self');" class="addBasket w-100 border-0 rounded-1" data-id="{{ product.pk }}">{% trans 'Səbətə at' %}</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/products.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load mathfilters %}
+{% block title %}
+  <title>Homemart</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+
+    <style>
+        .banner {
+            background-image: url("{% static 'images/Mask group.svg' %}");
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <nav class="mt-3 mx-auto" id="breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb px-5 m-0 py-2">
+            <li class="breadcrumb-item fw-bold">{% trans 'Ana səhifə' %}</li>
+            {% if child.parent %}
+                <li class="breadcrumb-item fw-bold">{{ child.parent }}</li>
+                <li class="breadcrumb-item fw-bold active" aria-current="page">{{ child }}</li>
+            {% else %}
+                <li class="breadcrumb-item fw-bold active" aria-current="page">{{ category }}</li>
+            {% endif %}
+        </ol>
+    </nav>
+
+    <section class="width-78 my-5 rounded-5 banner d-none d-lg-block">
+        <div class="w-50">
+            <div class="padding-30 mt-4">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/icons/homemart logo white.png' %}" width="150px" height="25px" alt="HOMEMART's Logo">
+                </a>
+            </div>
+            <div class="padding-30">
+                <h5 class="text-light fw-bold">
+                    {% trans 'Homemart ilə yenilənməyin vaxtıdır!' %}
+                </h5>
+                <p class="text-light">
+                    {% trans '2023 Kolleksiyamızla tanış olmaq üçün saytımıza  keçid edin. Hal-hazırda ümumi mağazalar şəbəkəsinə 78 mebel mağazası daxildir. Web saytımızda bütün mebellərin satışı mövcuddur.' %}
+                </p>
+            </div>
+        </div>
+    </section>  
+
+    <section class="width-78 mx-auto d-flex justify-content-end d-lg-none my-3">
+        <button class="btn btn-dark showFilters"><img src="{% static 'images/icons/filter.svg' %}" alt=""> {% trans 'Filtr' %}</button>
+    </section>
+    
+    <section class="w-100 d-none" id="filter_menu">
+        <h5 class="pt-5 pb-4 px-3 d-flex flex-start fw-bolder border-bottom"><img class="exit_filter" src="{% static 'images/icons/exit-filter.svg' %}" alt=""> {% trans 'Filtr' %}</h5>
+        <div class="block-content">
+            <div id="narrow-by-list">
+                <div class="category-filter">
+                    <div class="filter-heading">{% trans 'Kateqoriyalar' %} </div>
+                    <div>
+                        {% for category in categories %}
+                            <div class="form-check">
+                                <div class="d-flex justify-content-between">
+                                    <div class="category-field">
+                                        <input class="form-check-input parent-category-field" type="checkbox"  data-slug="{{category.slug}}" id="{{ category.name}}">
+                                        <label class="form-check-label">
+                                            {{ category.name }}
+                                        </label>
+                                    </div>
+                                    <div class="subDropdown plus-icon me-1">+</div>
+                                </div>
+                                <div class="sub-categories" style="display: none;">
+                                    {% for child in subcategories %}
+                                        {% if child.id == category.id %}
+                                            <div class="form-check">
+                                                <input class="form-check-input child-category-field" type="checkbox" data-slug="{{child.slug}}" id="{{ child.name }}">
+                                                <label class="form-check-label">
+                                                    {{ child.name }}
+                                                </label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="brand-filter">
+                    <div class="filter-heading">{% trans 'Brend' %} </div>
+                    <div>
+                        {% for brand in brands %}
+                            <div class="form-check">
+                                <input class="form-check-input brand-field" type="checkbox" data-slug="{{ brand.brand__slug }}" id="{{ brand.brand__name }}">
+                                <label class="form-check-label brand-label">
+                                    {{ brand.brand__name }} ({{ brand.count }})
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="price-filter">
+                    <div class="filter-heading">{% trans 'Qiymət' %} </div>
+                    <div class="price-input">
+                        <div class="field">
+                          <input type="number" class="input-min" value="0">
+                        </div>
+                        <div class="separator">-</div>
+                        <div class="field">
+                          <input type="number" class="input-max" value="10000">
+                        </div>
+                        <div class="manat">₼</div>
+                    </div>
+                    <div class="slider">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="range-input">
+                        <input type="range" class="range-min" min="0" max="10000" value="0" step="100">
+                        <input type="range" class="range-max" min="0" max="10000" value="10000" step="100">
+                    </div>
+                </div>
+            </div>
+            <div class="buttons mt-5 d-flex justify-content-evenly">
+                <button class="btn btn-warning px-4 py-2 exit_filter">{% trans 'Filtri tətbiq et' %}</button>
+                <button class="btn btn-light px-4 py-2 exit_filter">{% trans 'Filtri bağla' %}</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="width-78 mx-auto products">
+        <div class="row">
+            <div class="w-25 d-none d-lg-block">
+                <div class="block-content">
+                    <div id="narrow-by-list">
+                        <div class="category-filter">
+                            <div class="filter-heading">{% trans 'Kateqoriyalar' %} </div>
+                            <div>
+                                {% for category in categories %}
+                                    <div class="form-check">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="category-field">
+                                                <input class="form-check-input parent-category-field" type="checkbox"  data-slug="{{ category.slug }}" id="{{ category.name }}">
+                                                <label class="form-check-label">
+                                                    {{ category.name }} ({{ category.product_count }})
+                                                </label>
+                                            </div>
+                                            <div class="subDropdown plus-icon me-1">+</div>
+                                        </div>
+                                        <div class="sub-categories" style="display: none;">
+                                            {% for child in subcategories %}
+                                                {% if child.parent.name == category.name %}
+                                                    <div class="form-check">
+                                                        <input class="form-check-input child-category-field" type="checkbox" data-slug="{{ child.slug }}" id="{{ child.name }}">
+                                                        <label class="form-check-label">
+                                                            {{ child.name }} ({{ child.product_count }})
+                                                        </label>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="brand-filter">
+                            <div class="filter-heading">{% trans 'Brend' %} </div>
+                            <div>
+                                {% for brand in brands %}
+                                    <div class="form-check">
+                                        <input class="form-check-input brand-field" type="checkbox" data-slug="{{ brand.slug }}" id="{{ brand.name }}">
+                                        <label class="form-check-label brand-label">
+                                            {{ brand.name }} ({{ brand.product_count }})
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="price-filter">
+                            <div class="filter-heading">{% trans 'Qiymət' %} </div>
+                            <div class="price-input">
+                                <div class="field">
+                                  <input type="number" class="input-min" value="0">
+                                </div>
+                                <div class="separator">-</div>
+                                <div class="field">
+                                  <input type="number" class="input-max" value="10000">
+                                </div>
+                                <div class="manat">₼</div>
+                            </div>
+                            <div class="slider">
+                                <div class="progress"></div>
+                            </div>
+                            <div class="range-input">
+                                <input type="range" class="range-min" min="0" max="10000" value="0" step="100">
+                                <input type="range" class="range-max" min="0" max="10000" value="10000" step="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-75">
+                <div class="row" id="product-list">
+                    {% for product in products %}
+                        <div class="col-6 col-md-3 p-0">
+                            {% if user.is_authenticated %}
+                                {% if product. %}
+                                    <img src="{% static 'images/icons/svg-full-heart.svg' %}" class="heart-icon" data-id="{{ product.get_product_version.pk }}" alt="Heart Icon">
+                                {% else %}
+                                    <img src="{% static 'images/icons/svg-full-heart.svg' %}" class="heart-icon" data-id="{{ product.get_product_version.pk }}" alt="Heart Icon">
+                                {% endif %}
+                            {% else %}
+                                <img src="{% static 'images/icons/svg-full-heart.svg' %}" onclick="window.open('{% url 'login' %}', '_self');" class="heart-icon" data-id="{{ product.get_product_version.pk }}" alt="Heart Icon">
+                            {% endif %}
+                            <a class="w-100" href="{% url 'detail' product=product.slug version=product.get_product_version.slug %}">
+                                <img src="{{ product.get_product_version.image.first.image.url }}" class="card-img-top h-210" alt="...">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text mb-2 seats">{{ product.category.name }}</p>
+                                <a href="{% url 'detail' product=product.slug version=product.get_product_version.slug %}" class="card-title text-decoration-none d-block w-100 fw-bold mb-2">{{ product.name }}</a>
+                                <p class="btn btn-outline-danger disabled rounded-1">{% trans 'Bank kartları' %}</p>
+                                <p class="btn btn-outline-primary disabled rounded-1">{% trans 'Şəhər daxilində pulsuz çatdırılma' %}</p>
+                                <p class="btn btn-outline-success disabled rounded-1"><img src="{% static 'images/icons/svg-stock.svg' %}" class="me-1" alt=""> {% trans 'Stokda var' %}</p>
+                                <div class="d-md-flex justify-content-between productPrice">
+                                    <div class="d-flex flex-column pt-3 price">
+                                        {% if product.in_sale %}
+                                            <div class="text-decoration-line-through past-price text-secondary ps-3">
+                                                {{ product.final_price|stringformat:".2f" }} AZN
+                                            </div>
+                                        {% endif %}
+                                        <div class="ps-3 pt-1 fw-bold fullPrice">
+                                            {{ product.price|stringformat:".2f" }} AZN
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column bg-body-tertiary p-2 mb-2 me-1 rounded-2 productCredit">
+                                        <div class="d-flex justify-content-evenly">
+                                            <div>
+                                                <button type="button" class="btn btn-outline-secondary monthlyPayment border-0 p-1 fw-light">6 {% trans 'ay' %}</button>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-outline-secondary monthlyPayment border-0 p-1 fw-light">12 {% trans 'ay' %}</button>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-outline-secondary monthlyPayment border-0 p-1 fw-light">18 {% trans 'ay' %}</button>
+                                            </div>
+                                        </div>
+                                        <div class="resultPrice fw-bold fs-10">
+                                            {{ product.price|div:12|stringformat:".2f" }} AZN
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <button type="submit" class="addBasket w-100 px-5 py-2 border-0 rounded-1" id="{{ product.get_product_version.pk }}">{% trans 'Səbətə at' %}</button>
+                                {% else %}
+                                    <button type="submit" onclick="window.open('{% url 'login' %}', '_self');" class="addBasket w-100 px-5 py-2 border-0 rounded-1" data-id="{{ product.pk }}">{% trans 'Səbətə at' %}</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="pagination">
+                    <div class="row mt-5">
+                        <div class="col text-center">
+                            <div class="block-27">
+                                <ul>
+                                    {% if page_obj.has_previous %}
+                                        <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                                    {% endif %}
+                                    {% for page in paginator.page_range %}
+                                        {% if page_obj.number == page %}
+                                            <li class="active"><span>{{ page }}</span></li>
+                                        {% else %}
+                                            <li><a href="?page={{page}}">{{page}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+    <script>    
+        var userIsAuthenticated = {{ user.is_authenticated|lower }};
+    </script>
+    <script src="{% static 'js/products.js' %}"></script>
+    <script src="{% static 'js/mobile_filter.js' %}"></script>
+{% endblock %}

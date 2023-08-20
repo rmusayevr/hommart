@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Əlaqə' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <nav class="mt-3 mx-auto d-lg-none d-block" id="breadcrumb" aria-label="breadcrumb">
+        <ol class="row breadcrumb m-0 py-2">
+            <li class="col-6 breadcrumb-item py-0 ps-4">{% trans 'Profilim' %}</li>
+            <li class="col-6 breadcrumb-item py-0 ps-4">{% trans 'Əlaqə' %}</li>
+        </ol>
+    </nav>
+
+    <section class="contact">
+        <div class="row w-75 rounded-1 mt-3">
+            <div class="col-2 d-none d-lg-block rounded-2 ps-3 pt-4">
+                <h5 class="fw-bold pb-2">{% trans 'Profilim' %}</h5>
+                <a href="{% url 'profile' user.pk %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Mənim Məlumatlarım' %}</button>
+                </a>
+                <a href="{% url 'myorders' %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Sifarişlərim' %}</button>
+                </a> 
+                <a href="{% url 'wishlist' %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Seçilmişlərim' %}</button>
+                </a>
+                <a href="{% url 'contact' user.pk %}">
+                    <button type="submit" class="w-100 border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start active">{% trans 'Əlaqə' %}</button>
+                </a>
+                <a href="{% url 'logout' %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Çıxış' %}</button>
+                </a>
+            </div>
+            <div class="col-12 col-lg-4">
+                {% include 'messages.html' %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        {{ form.status }}
+                    </div>
+                    <label for="contact" id="status_appeal" class="mt-2">{% trans 'Müraciətin statusu' %}</label>
+                    <div class="mb-3">
+                        {{ form.comment }}
+                    </div>
+                    <button type="submit" class="sendComment w-100 border-0 py-3 mt-3 rounded-2 fw-bold">{% trans 'Göndər' %}</button>
+                </form>
+                <div class="appeals">
+                    <h5 class="fw-bold mb-4">{% trans 'Əvvəlki müraciətlərim' %}</h5>
+                    {% for appeal in appeals %}
+                        <div class="appeal mb-5">
+                            <p>{{ appeal.date }}</p>
+                            <div class="rounded-2 fw-bold px-4 mb-3">
+                                {{ appeal.status }}
+                            </div>
+                            <div class="rounded-2 fw-bold p-4">
+                                {{ appeal.comment }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Sifarişçi məlumatları' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cart_verify.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<nav class="mt-3 mx-auto" id="breadcrumb" aria-label="breadcrumb">
+    <ol class="row breadcrumb m-0 py-2">
+        <li class="col-6 text-center breadcrumb-item py-0">{% trans 'Səbətim' %}</li>
+        <li class="col-6 text-center breadcrumb-item py-0" aria-current="page">{{ total|stringformat:".2f" }} azn</li>
+    </ol>
+</nav>
+
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %} 
+            <div class="row basket-main">
+                <div class="col-lg-6 col-12 p-0 basket-main-left ">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="d-flex flex-column d-lg-block align-items-center justify-content-center">
+                            <h6 class="fw-bolder mb-4">{% trans 'Sifarişçi məlumatları' %}</h6 class="fw-bolder">
+                            <div class="mb-4">
+                                <!-- <input type="text" class="form-control inputs py-2" id="full_name"> -->
+                                {{ form.full_name }}
+                                <label for="full_name" class="fw-bold fs-10">{% trans 'Ad Soyad' %} *</label>
+                            </div>
+                            <div class="mb-4">
+                                <!-- <input type="email" class="form-control inputs py-2" id="mail"> -->
+                                {{ form.phone_number }}
+                                <label for="mail" class="fw-bold fs-10">{% trans 'Telefon nömrəsi' %} *</label>
+                            </div>
+                            <div class="mb-4">
+                                <!-- <textarea type="text" placeholder="Çatdırılma ünvanı haqqında, Şəhər, Küçə, Ev" class="form-control inputs py-3 px-4 " rows="4" id="address"></textarea> -->
+                                {{ form.address }}
+                                <label for="address" class="fw-bold fs-10">{% trans 'Çatdırılma Ünvanı' %}</label>
+                            </div>      
+                            <div class="mb-5">
+                                <!-- <input type="text" class="form-control inputs py-2" id="address_link"> -->
+                                {{ form.address_link }}
+                                <label for="address_link" class="fw-bold fs-10">{% trans 'Ünvanın linki (Əgər varsa)' %}</label>
+                            </div>
+                            <div class="pt-3 ">
+                                <div class="p-0 payment-container d-flex d-lg-block justify-content-center flex-column">
+                                    <h6 class="fw-bolder">{% trans 'Ödəniş üsulları' %}</h6>
+                                    {{ form.payment_method }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 basket-main-right">
+                    <div class="row card-total-center">
+                        <div class="col-lg-6 col-12 d-none d-lg-block card-total-center">
+                            <div id="msform">
+                                <ul id="progressbar">
+                                    <li class="previous">{% trans 'Səbətim' %}</li>
+                                    <li class="active">{% trans 'Məlumatlarım' %}</li>
+                                    <li class="next">{% trans 'Ödəmə' %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12 py-4" id="card-total">
+                            <div class="px-4">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <div class="fw-bold">
+                                        {% trans 'Ümumi qiymət:' %}
+                                    </div>
+                                    <div class="fw-bolder">
+                                        {{ subtotal|stringformat:".2f" }} azn
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <div class="fw-bold">
+                                        {% trans 'Endirim:' %}
+                                    </div>
+                                    <div class="fw-bolder">
+                                        -{{ sale|stringformat:".2f" }} azn
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between border-top border-1 border-black pt-2 mb-5">
+                                    <div class="fw-bolder">
+                                        {% trans 'Toplam:' %}
+                                    </div>
+                                    <div class="fw-bolder">
+                                        {{ total|stringformat:".2f" }} azn
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center py-3">
+                                <button type="submit" class="orderButton ps-0 border-0 rounded-1 fw-bold">{% trans 'Növbəti' %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

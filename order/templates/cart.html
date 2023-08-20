@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Səbətim' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <nav class="mt-3 mx-auto" id="breadcrumb" aria-label="breadcrumb">
+        <ol class="row breadcrumb m-0 py-2">
+            <li class="col-6 text-center breadcrumb-item py-0">{% trans 'Səbətim' %}</li>
+            <li class="col-6 text-center breadcrumb-item py-0" id="main_total" aria-current="page">{{ total|stringformat:".2f" }} azn</li>
+        </ol>
+    </nav>
+    
+    <div class="container">
+        <div class="row basket_main">
+            <div class="col-lg-6 col-12">
+                <div class="row ">
+                    {% for item in items %}
+                        <div class="col-lg-6 col-12 image-col-6" id="card">
+                            <div class="row d-flex align-items-center justify-content-center">
+                                <div class="col-6">
+                                    <img src="{{ item.product.image.first.image.url }}" alt="" >
+                                </div>
+                                <div class="col-6 second">
+                                    <div class="d-flex flex-column justify-content-start ps-4 productInfo">
+                                        <div class="fw-bold seats">
+                                            {{ item.product.product.category }}
+                                        </div>
+                                        <div class="fw-bolder">
+                                            {{ item.product.product.name }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column ps-4 pt-4 price">
+                                        {% if item.product.product.in_sale %}
+                                            <div class="text-decoration-line-through sale_price fw-bold text-secondary">
+                                                {{ item.product.product.final_price|stringformat:".2f" }} AZN
+                                            </div>
+                                        {% endif %}
+                                        <div class="price fw-bolder last_price">
+                                            {{ item.product.product.price|stringformat:".2f" }} AZN
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column ps-4 pt-4 qty">
+                                        <div class="number">
+                                            <span class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" id="stepDown" data-id="{{ item.product.pk}}">-</span>
+                                            <input type="text" id="count" class="quantity" value="{{ item.quantity }}"/>
+                                            <span class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" id="stepUp" class="plus" data-id="{{ item.product.pk}}">+</span>
+                                        </div>
+                                        <div class="fw-bolder productNumber">
+                                            {% trans 'Məhsulun sayı' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="{% static 'images/icons/delete_products.svg' %}" class="remove" data-id="{{ item.product.pk }}" alt="">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-12">
+                <div class="row card-total-center">
+                    <div class="col-lg-6 col-12 card-total-center">
+                        <form id="msform">
+                            <ul id="progressbar">
+                                <li class="active">{% trans 'Səbətim' %}</li>
+                                <li class="next">{% trans 'Məlumatlarım' %}</li>
+                                <li class="next">{% trans 'Ödəmə' %}</li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 col-12 py-4" id="card-total">
+                        <div class="px-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <div class="fw-bold">
+                                    {% trans 'Ümumi qiymət:' %}
+                                </div>
+                                <div class="fw-bolder" id="subtotal">
+                                    {{ subtotal|stringformat:".2f" }} azn
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="fw-bold">
+                                    {% trans 'Endirim:' %}
+                                </div>
+                                <div class="fw-bolder" id="sale">
+                                    -{{ sale|stringformat:".2f" }} azn
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between border-top border-1 border-black pt-2 mb-5">
+                                <div class="fw-bolder">
+                                    {% trans 'Toplam:' %}
+                                </div>
+                                <div class="fw-bolder" id="total">
+                                    {{ total|stringformat:".2f" }} azn
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center py-3">
+                            <a href="{% url 'cart_verify' %}">
+                                <button type="submit" class="orderButton ps-0 border-0 rounded-1 fw-bold">{% trans 'Sifariş rəsmiləşdir' %}</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

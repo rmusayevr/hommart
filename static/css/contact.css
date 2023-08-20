@@ -1,0 +1,108 @@
+.breadcrumb li:first-child {
+    font-size: 15px;
+    color: #0D2B3D;
+    font-weight: bolder;
+}
+
+#breadcrumb {
+    --bs-breadcrumb-divider: ' ';
+    background-color: #F1F1F1;
+    margin-top: 0 !important;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+}
+
+.breadcrumb li:last-child {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.contact .w-75 {
+    margin-left: 25%;
+}
+
+.contact .col-2 {
+    background-color: #F1F1F1;
+    width: 220px;
+    height: 570px;
+}
+
+.contact .col-2 button {
+    font-size: 11px;
+    color: #0D2B3D;
+    width: 250px;
+}
+
+.contact .active {
+    background-color: #FFC700;
+}
+
+.contact #contact {
+    border: 2px solid #8F949E;
+    font-size: 13px;
+}
+
+.contact #status_appeal {
+    font-size: 10px;
+    color: #8F949E;
+    margin-bottom: 30px;
+}
+
+.contact .col-4 textarea {
+    font-size: 12px;
+    border: 2px solid #8F949E;
+}
+
+.contact form .address {
+    font-size: 12px;
+}
+
+.sendComment {
+    background-color: #F4CD17;
+    color: #0D2B3D;
+    font-size: 10px;
+}
+
+.appeals {
+    margin-top: 80px;
+}
+
+.appeals h5 {
+    color: #8F949E;
+}
+
+.appeals p {
+    font-size: 10px;
+    color: #8F949E;
+}
+
+.appeal div {
+    border: 1px solid #8F949E;
+    font-size: 12px;
+    padding: 12px 0;
+}
+
+.appeals h5 {
+    font-size: 13px;
+}
+
+@media screen and (min-width: 2360px) {
+    .contact .w-75 {
+        margin-left: 30%;
+    }
+
+    .contact .col-4:last-child {
+        width: 23%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .contact .row {
+        margin-top: 50px !important;
+        margin-left: 0;
+        width: 100% !important;
+    }
+}

@@ -1,0 +1,73 @@
+.myOrders .w-75 {
+    margin-left: 25%;
+}
+
+.myOrders .col-2 {
+    background-color: #F1F1F1;
+    width: 220px;
+    height: 570px;
+}
+
+.myOrders .active {
+    background-color: #FFC700;
+}
+
+.myOrders .col-7 {
+    width: 640px;
+}
+
+.h-200 {
+    height: 200px;
+}
+.mb-30 {
+    margin-bottom: 30px;
+}
+ 
+.fs-13 {
+    font-size: 13px;
+}
+
+.myOrders .col-2 button {
+    font-size: 11px;
+    color: #0D2B3D;
+    width: 250px;
+}
+.myOrders .col-7 .rounded-2 {
+    border: 1px solid #CCCCCC;
+}
+.btn-success {
+    background-color: #54C25F;
+    font-size: 12px;
+}
+
+.btn-warning {
+    background-color: #FFC700;
+    font-size: 12px;
+}
+
+.btn-danger {
+    background-color: #FF003D;
+    font-size: 12px;
+}
+
+.myOrders .col-7 div {
+    font-size: 15px;
+    font-weight: bolder;
+}
+.text-dark {
+    font-size: 11px;
+}
+
+@media screen and (min-width: 2360px) {
+    .myOrders .w-75 {
+        margin-left: 30%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .myOrders .w-75 {
+        margin-left: 0;
+        width: 100% !important;
+    }
+
+}

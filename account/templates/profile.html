@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+  <title>Homemart - {% trans 'Profilim' %}</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <nav class="mt-3 mx-auto d-lg-none d-block" id="breadcrumb" aria-label="breadcrumb">
+        <ol class="row breadcrumb m-0 py-2">
+            <li class="col-6 breadcrumb-item py-0 ps-4">{% trans 'Profilim' %}</li>
+            <li class="col-6 breadcrumb-item py-0 ps-4">{% trans 'Mənim məlumatlarım' %}</li>
+        </ol>
+    </nav>
+
+    <section class="profile">
+        <div class="row w-75 rounded-1 mt-3">
+            <div class="col-2 d-none d-lg-block rounded-2 ps-3 pt-4">
+                <h5 class="fw-bold pb-2">{% trans 'Profilim' %}</h5>
+                <a href="{% url 'profile' user.pk %}">
+                    <button type="submit" class="w-100 border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start active">{% trans 'Mənim Məlumatlarım' %}</button>
+                </a>
+                <a href="{% url 'myorders' %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Sifarişlərim' %}</button>
+                </a>
+                <a href="{% url 'wishlist' %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Seçilmişlərim' %}</button>
+                </a>
+                <a href="{% url 'contact' user.pk %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Əlaqə' %}</button>
+                </a>
+                <a href="{% url 'logout' %}">
+                    <button type="submit" class="w-100 bg-white border-0 py-2 px-3 mb-2 rounded-2 fw-bold text-start">{% trans 'Çıxış' %}</button>
+                </a>
+            </div>
+            <div class="col-9 ms-4">
+                <form method="POST">
+                    <div class="mb-3">
+                        {% include 'messages.html' %}
+                    </div>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.full_name }}
+                        <label for="full_name" class="fw-bold">{% trans 'Ad Soyad' %} *</label>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.email }}
+                        <label for="mail" class="fw-bold">{% trans 'Mail adresi' %} *</label>
+                        <span class="text-danger">{{ form.email.errors }}</span>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.phone_number }}
+                        <label for="phone_number" class="fw-bold">{% trans 'Telefon nömrəsi' %} *</label>
+                        <span class="text-danger">{{ form.phone_number.errors }}</span>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.extra_phone_number }}
+                        <label for="extra_phone_number" class="fw-bold">{% trans 'Əlavə telefon nömrəsi' %}</label>
+                        <span class="text-danger">{{ form.extra_phone_number.errors }}</span>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.city_number }}
+                        <label for="city_phone_number" class="fw-bold">{% trans 'Şəhər telefonu' %}</label>
+                        <span class="text-danger">{{ form.city_number.errors }}</span>
+                    </div>       
+                    <div class="mb-3">
+                        {{ form.birthday }}
+                        <label for="birthday" class="fw-bold">{% trans 'Doğum tarixi' %}</label>
+                        <span class="text-danger">{{ form.birthday.errors }}</span>
+                    </div>
+                      <div class="mb-3">
+                        {{ form.passport_number }}
+                        <label for="passport_number" class="fw-bold">{% trans 'ŞV-nin nömrəsi' %}</label>
+                        <span class="text-danger">{{ form.passport_number.errors }}</span>
+                    </div>
+                      <div class="mb-3">
+                        {{ form.password1 }}
+                        <label for="password" class="fw-bold">{% trans 'Parol' %}</label>
+                      </div>
+                      <div class="mb-3">
+                        {{ form.password2 }}
+                        <label for="confirm_password" class="fw-bold">{% trans 'Parolu təkrar et' %}</label>
+                        <span class="text-danger">{{ form.password2.errors }}</span>
+                    </div>
+                      <div class="mb-3">
+                        {{ form.address }}
+                        <label for="address" class="fw-bold">{% trans 'Çatdırılma Ünvanı' %}</label>
+                      </div>      
+                      <div class="mb-3">
+                        {{ form.address_link }}
+                        <label for="address_link" class="fw-bold">{% trans 'Ünvanın linki' %}</label>
+                      </div>
+                      <div class="mt-5 form_last_div">
+                        <span class="me-5 fw-bold">{% trans 'Cinsi' %}</span>
+                        <div class="form-check form-check-inline ms-4">
+                            {{ form.gender.0 }}
+                        </div>
+                        <div class="form-check form-check-inline">
+                            {{ form.gender.1 }}
+                        </div>
+                      </div>
+                      <button type="submit" class="completeChanges border-0 mt-4 rounded-2 fw-bold">{% trans 'Dəyişiklikləri yadda saxla' %}</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load humanize %}
+{% load mathfilters %}
+{% block title %}
+  <title>Homemart</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .banner {
+            background-image: url("{% static 'images/Mask group.svg' %}");
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .me-2{
+            padding-bottom: 5px !important;
+        }
+        @media screen and (max-width: 768px){
+            .specialSale {
+    width: 92% !important;
+    margin: 0 13px !important;
+}
+        }
+    </style>
+    
+{% endblock %}
+
+{% block content %}
+
+    <nav class="my-4 d-none d-lg-block">
+        <div class="width-78 d-flex justify-content-between">
+            {% for category in categories %}
+                {% if not category.parent %}
+                <div class="w-19 position-relative">
+                    <a href="{% url 'products' %}?category={{ category.slug}}" class="text-decoration-none mb-3">
+                        <div class="nav-link border-0 shadow-sm rounded d-flex justify-content-center align-items-center">
+                            <p class="m-0 fw-bold"><img class="me-2" src="{{ category.image.url }}" alt="" width="25px" height="25px"> {{ category.name }}</p>
+                        </div>
+                    </a>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 w-420 rounded-3 mt-5 position-absolute d-none">
+                        {% for child in category.parent_category.all %}
+                            <a class="p-0 text-decoration-none" href="{% url 'products' %}?child={{ child.slug }}">
+                                <div class="col">
+                                    <div class="card border-0">
+                                        <img src="{{ child.image.url }}" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                        <h5 class="card-title fw-bold">{{ child.name }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </nav>
+
+    <section class="width-78 mb-5 pt-2">
+        <div class="row carousels-container">
+            <div class="w-61">
+                <div id="carouselExampleCaptions" data-bs-ride="carousel"  class="carousel slide">
+                    <div class="carousel-indicators">
+                        {% for carouselButton in carousels %}
+                            {% if forloop.counter == 1 %}
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter|sub:1 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+                            {% else %}
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ forloop.counter|sub:1 }}" aria-label="Slide {{ forloop.counter }}"></button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner rounded-3">
+                        {% for carousel in carousels %}
+                            <div class="carousel-item {% if forloop.counter == 1 %}active {% endif %}" data-bs-interval="2000">
+                                <img src="{{ carousel.image.url }}" class="w-100" alt="..." style="position: absolute; top: -100px;">
+                                <div class="carousel-caption text-start d-md-block">
+                                <h1>{{ carousel.name }}</h1>
+                                {% if carousel.desc %}
+                                    <p>{{ carousel.desc }}</p>
+                                {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="specialSale rounded-3 p-0">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for s_item in special_items %}
+                            <div class="carousel-item {% if forloop.counter == 1 %}active {% endif %}" data-bs-interval="3000">
+                                <div class="d-flex justify-content-between heading">
+                                    <div class="fw-bolder">
+                                        {% trans 'Xüsusi endirimdə' %}
+                                    </div>
+                                    <div class="fw-bolder dynamic-duration"></div>
+                                </div>
+                                <div class="d-flex mb-2">
+                                    <div class="ps-3 pt-4 ">
+                                        <img src="{% static 'images/products/Rectangle 1714.png' %}" class="slide-img rounded-3" alt="" width="270px" height="160px">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-start ps-3 pt-4 productInfo">
+                                        <div class="fw-bolder">
+                                            {{ s_item.name }}
+                                        </div>
+                                        <div class="fw-bolder">
+                                            {{ s_item.brand }}
+                                        </div>
+                                        <div class="fw-bolder">
+                                            {% trans 'Stokda Var' %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between basketPrice">
+                                    <div class="d-flex flex-column pt-4 price">
+                                        {% if s_item.final_price %}
+                                            <div class="text-decoration-line-through past-price fw-bold text-secondary ps-3">
+                                                {{ s_item.final_price }} AZN
+                                            </div>
+                                        {% endif %}
+                                        <div class="ps-3 fw-bold">
+                                            {{ s_item.price }} AZN
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center pt-3 w-190">
+                                        <div class="ms-2 me-1">
+                                            <button class="withClick text-white rounded-2"><img src="{% static 'images/icons/svg-click.svg' %}" class="me-1" width="12px" height="15px" alt=""> {% trans 'Bir kliklə al' %}</button>
+                                        </div>
+                                        <div>   
+                                            {% if user.is_authenticated %}
+                                                <button class="shoppingCart addBasket rounded-2 border-0" id="{{ s_item.get_product_version.pk }}"><img src="{% static 'images/icons/svg-cart.svg' %}"/></button>
+                                            {% else %}
+                                                <button class="shoppingCart addBasket rounded-2 border-0" onclick="window.open('{% url 'login' %}', '_self');" id="{{ s_item.get_product_version.pk }}"><img src="{% static 'images/icons/svg-cart.svg' %}"/></button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="width-78 pt-5 pb-4 px-0 products">
+        <div class="d-flex justify-content-between align-items-center">
+            <div style="font-weight:800;">{% trans 'Bu Həftənin Yeniləri' %}</div>
+            <div>
+              <button class="btn-left-new">
+                <img src="{% static 'images/icons/svg-slider-arrow-left.svg' %}" width="15px" height="15px" alt="">
+              </button>
+              <button class="btn-right-new">
+                <img src="{% static 'images/icons/svg-slider-arrow-right.svg' %}" width="15px" height="15px" alt="">
+              </button>
+            </div>
+        </div>
+        <div class="custom-card-group rounded-2">
+            {% for new_item in new_items %}
+                <div class="custom-card">
+                    {% if user.is_authenticated %}
+                        <img src="{% static 'images/icons/svg-full-heart.svg' %}" class="heart-icon" data-id="{{ new_item.get_product_version.pk }}" alt="Heart Icon">
+                    {% else %}
+                        <img src="{% static 'images/icons/svg-full-heart.svg' %}" onclick="window.open('{% url 'login' %}', '_self');" class="heart-icon" data-id="{{ new_item.get_product_version.pk }}" alt="Heart Icon">
+                    {% endif %}
+                    <a class="w-100" href="{% url 'detail' product=new_item.slug version=new_item.get_product_version.slug %}">
+                        <img src="{{ new_item.get_product_version.image.first.image.url }}" class="card-img-top h-210" alt="...">
+                    </a>
+                    <div class="custom-card-body">
+                        <p class="custom-card-text my-2 seats">{{ new_item.category }}</p>
+                        <a href="{% url 'detail' product=new_item.slug version=new_item.get_product_version.slug %}" class="custom-card-title text-decoration-none d-block w-100 fw-bold ms-3 mb-2">{{ new_item.name }}</a>
+                        <p class="btn btn-outline-danger disabled rounded-1">{% trans 'Bank kartları' %}</p>
+                        <p class="btn btn-outline-primary disabled rounded-1">{% trans 'Şəhər daxilində pulsuz çatdırılma' %}</p>
+                        <p class="btn btn-outline-success disabled rounded-1"><img src="{% static 'images/icons/svg-stock.svg' %}" class="me-1" width="10px" height="10px" alt=""> {% trans 'Stokda var' %}</p>
+                        <div class="d-flex justify-content-between productPrice">
+                            <div class="d-flex flex-column pt-3 price">
+                                {% if new_item.in_sale %}
+                                    <div class="text-decoration-line-through past-price text-secondary ps-3">
+                                        {{ new_item.final_price|stringformat:".2f" }} AZN
+                                    </div>
+                                {% endif %}
+                                <div class="ps-3 pt-1 fw-bold final-price">
+                                    {{ new_item.price|stringformat:".2f" }} AZN
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column bg-body-tertiary p-2 me-3 rounded-2 productCredit">
+                                <div class="d-flex justify-content-evenly">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary border-0 p-1 fw-light"><span class="months">6</span> {% trans 'ay' %}</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary border-0 p-1 fw-light"><span class="months">12</span> {% trans 'ay' %}</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary border-0 p-1 fw-light"><span class="months">18</span> {% trans 'ay' %}</button>
+                                    </div>
+                                </div>
+                                <div class="fw-bold price-fs-10">
+                                    {{ new_item.price|div:12|stringformat:".2f" }} AZN
+                                </div>
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <button type="button" class="text-white border-0 rounded-1 d-flex fw-bold my-3 px-5 py-2 mx-auto addBasket" id="{{ new_item.get_product_version.pk }}"><img src="{% static 'images/icons/svg-cart.svg' %}"/> {% trans 'Səbətə əlavə et' %}</button>
+                        {% else %}
+                            <button type="button" onclick="window.open('{% url 'login' %}', '_self');" class="text-white border-0 rounded-1 d-flex fw-bold my-3 px-5 py-2 mx-auto addBasket" id="{{ new_item.get_product_version.pk }}"><img src="{% static 'images/icons/svg-cart.svg' %}"/> {% trans 'Səbətə əlavə et' %}</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="width-78 my-5 rounded-5 banner d-none d-lg-block">
+        <div class="w-50">
+            <div class="padding-30">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/icons/homemart logo white.png' %}" width="150px" height="25px" alt="HOMEMART's Logo">
+                </a>
+            </div>
+            <div class="padding-30">
+                <h5 class="text-light fw-bold">
+                    {% trans 'Homemart ilə yenilənməyin vaxtıdır!' %}
+                </h5>
+                <p class="text-light">
+                    {% trans '2023 Kolleksiyamızla tanış olmaq üçün saytımıza  keçid edin. Hal-hazırda ümumi mağazalar şəbəkəsinə 78 mebel mağazası daxildir. Web saytımızda bütün mebellərin satışı mövcuddur.' %}
+                </p>
+            </div>
+            <div>
+                <a href="{% url 'products' %}">
+                    <button type="button" class="rounded-2 text-center fw-bold moreInfo">{% trans 'Daha ətraflı' %}</button>
+                </a>
+            </div>
+        </div>
+    </section>  
+
+    <section class="width-78 pt-5 px-0 products">
+        <div class="d-flex justify-content-between align-items-center">
+            <div style="font-weight:800;">{% trans 'Sizin üçün seçimlərimiz' %}</div>
+            <div>
+                <button class="btn-left-chosen">
+                  <img src="{% static 'images/icons/svg-slider-arrow-left.svg' %}" width="15px" height="15px" alt="">
+                </button>
+                <button class="btn-right-chosen">
+                  <img src="{% static 'images/icons/svg-slider-arrow-right.svg' %}" width="15px" height="15px" alt="">
+                </button>
+              </div>
+        </div>
+        <div class="custom-chosen-card-group rounded-2">
+            {% for chosen_item in chosen_items %}
+                <div class="custom-card">
+                    {% if user.is_authenticated %}
+                        <img src="{% static 'images/icons/svg-full-heart.svg' %}" class="heart-icon" data-id="{{ chosen_item.get_product_version.pk }}" alt="Heart Icon">
+                    {% else %}
+                        <img src="{% static 'images/icons/svg-full-heart.svg' %}" onclick="window.open('{% url 'login' %}', '_self');" class="heart-icon" data-id="{{ chosen_item.get_product_version.pk }}" alt="Heart Icon">
+                    {% endif %}
+                    <a class="w-100" href="{% url 'detail' product=chosen_item.slug version=chosen_item.get_product_version.slug %}">
+                        <img src="{{ chosen_item.get_product_version.image.first.image.url }}" class="card-img-top h-210" alt="...">
+                    </a>
+                    <div class="custom-card-body">
+                        <p class="custom-card-text my-2 seats">{{ chosen_item.category }}</p>
+                        <a href="{% url 'detail' product=chosen_item.slug version=chosen_item.get_product_version.slug %}" class="custom-card-title text-decoration-none d-block w-100 fw-bold ms-3 mb-2">{{ chosen_item.name }}</a>
+                        <p class="btn btn-outline-danger disabled rounded-1">{% trans 'Bank kartları' %}</p>
+                        <p class="btn btn-outline-primary disabled rounded-1">{% trans 'Şəhər daxilində pulsuz çatdırılma' %}</p>
+                        <p class="btn btn-outline-success disabled rounded-1"><img src="{% static 'images/icons/svg-stock.svg' %}" class="me-1" width="10px" height="10px" alt=""> {% trans 'Stokda var' %}</p>
+                        <div class="d-flex justify-content-between productPrice">
+                            <div class="d-flex flex-column pt-3 price">
+                                {% if chosen_item.in_sale %}
+                                    <div class="text-decoration-line-through past-price text-secondary ps-3">
+                                        {{ chosen_item.final_price|stringformat:".2f" }} AZN
+                                    </div>
+                                {% endif %}
+                                <div class="ps-3 pt-2 fw-bold final-price">
+                                    {{ chosen_item.price|stringformat:".2f" }} AZN
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column bg-body-tertiary p-2 me-3 rounded-2 productCredit">
+                                <div class="d-flex justify-content-evenly">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary border-0 p-1 fw-light"><span class="months">6</span> {% trans 'ay' %}</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary border-0 p-1 fw-light"><span class="months">12</span> {% trans 'ay' %}</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary border-0 p-1 fw-light"><span class="months">18</span> {% trans 'ay' %}</button>
+                                    </div>
+                                </div>
+
+                                <div class="fw-bold price-fs-10">
+                                    {{ chosen_item.price|div:12|stringformat:".2f" }} AZN
+                                </div>
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <button type="button" class="text-white border-0 rounded-1 d-flex fw-bold my-3 px-5 py-2 mx-auto addBasket" id="{{ chosen_item.get_product_version.pk }}"><img src="{% static 'images/icons/svg-cart.svg' %}"/> {% trans 'Səbətə əlavə et' %}</button>
+                        {% else %}
+                            <button type="button" onclick="window.open('{% url 'login' %}', '_self');" class="text-white border-0 rounded-1 d-flex fw-bold my-3 px-5 py-2 mx-auto addBasket" id="{{ new_item.get_product_version.pk }}"><img src="{% static 'images/icons/svg-cart.svg' %}"/> {% trans 'Səbətə əlavə et' %}</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}
